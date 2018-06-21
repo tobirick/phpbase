@@ -25,16 +25,12 @@ class TestModel extends Model {
 
         //$user = self::DB()->table('users')->where('id', 14)->delete();
 
-        /*
-        self::DB()->table('users')->where([
-            'first_name' => 'Tobi'
-        ])->update([
-            'first_name' => 'Updated First Name'
-        ]);
+        
+        $users = self::DB()->table('users')->select()->where('id = 13')->get();
 
-        */
+        
 
-        $users = self::DB()->table('users')->select('id, first_name, last_name')->where('id', 9)->get();
+        //$users = self::DB()->table('users')->select('id, first_name, last_name')->where('id', 9)->get();
 
         var_dump($users);
     }

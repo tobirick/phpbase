@@ -77,34 +77,39 @@ class Database {
     }
 
     public function bindValues() {
-        foreach($this->bindValuesArray as $bindKey => $bindValue) {
-            $valueDataType = gettype($bindValue);
-
-            switch ($valueDataType) {
-                case 'string':
-                    $paramType = \PDO::PARAM_STR;
-                    break;
-                case 'integer':
-                    $paramType = \PDO::PARAM_INT;
-                    break;
-                case 'boolean':
-                    $paramType = \PDO::PARAM_BOOL;
-                    break;
-                default:
-                    $paramType = \PDO::PARAM_STR;
+        if($this->bindValuesArray) {
+            foreach($this->bindValuesArray as $bindKey => $bindValue) {
+                $valueDataType = gettype($bindValue);
+    
+                switch ($valueDataType) {
+                    case 'string':
+                        $paramType = \PDO::PARAM_STR;
+                        break;
+                    case 'integer':
+                        $paramType = \PDO::PARAM_INT;
+                        break;
+                    case 'boolean':
+                        $paramType = \PDO::PARAM_BOOL;
+                        break;
+                    default:
+                        $paramType = \PDO::PARAM_STR;
+                }
+                
+                $this->statement->bindValue($bindKey, $bindValue, $paramType);
             }
-            
-            $this->statement->bindValue($bindKey, $bindValue, $paramType);
         }
     }
 
     public function table($table) {
+        if(!$table || !is_string($table)) {
+            throw new \Exception('Add valid Table.');
+        }
         $this->table = $table;
 
         return $this;
     }
 
-    public function select($fields) {
+    public function select($fields = '*') {
         $this->fields = $fields;
 
         return $this;
@@ -140,6 +145,9 @@ class Database {
     }
 
     public function get() {
+        if(!$this->fields) {
+            $this->fields = '*';
+        }
         $this->buildSelectQuery();
     
         $this->statement = $this->db->prepare($this->query);
