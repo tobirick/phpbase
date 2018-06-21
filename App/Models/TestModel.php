@@ -27,11 +27,13 @@ class TestModel extends Model {
 
         
         $users = self::DB()->table('users')->select()->where('id = 13')->get();
+        $users2 = self::DB()->table('users')->select()->where('id = 9')->get();
 
         
 
         //$users = self::DB()->table('users')->select('id, first_name, last_name')->where('id', 9)->get();
 
         var_dump($users);
+        var_dump($users2);
     }
 }

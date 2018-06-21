@@ -9,7 +9,7 @@ class Ajax {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
 
-        return $content;
+        return $decoded;
     }
     
     public static function send($data) {
