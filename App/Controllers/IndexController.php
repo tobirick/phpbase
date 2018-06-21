@@ -5,7 +5,7 @@ use \Core\BaseController;
 use \Core\Ajax;
 use \Core\Flash;
 use \Core\Email;
-use \App\Models\TestModel;
+use \App\Models\User;
 
 class IndexController extends BaseController {  
     public function index($params) {
@@ -14,7 +14,18 @@ class IndexController extends BaseController {
         //$email = new Email();
         //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
         //$email->send();
-        TestModel::test();
+        
+        $user = new User();
+
+        $users = $user->query()->select()->get();
+
+        /*
+        $users = User::query()->insert([
+            'first_name' => 'Tobi',
+            'last_name' => 'Rick'
+        ]);*/
+
+        var_dump($users);
 
         self::view('index', [
             'testVar' => 'testVar Content',

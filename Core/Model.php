@@ -4,7 +4,10 @@ namespace Core;
 use PDO;
 
 abstract class Model {
-    public static function getDB() {
+    protected static $table;
+    protected static $fillable;
+
+    private function connectDB() {
         static $db = null;
 
         if ($db === null) {
@@ -19,9 +22,23 @@ abstract class Model {
         return $db;
     }
 
-    public static function DB() {
-        $db = self::getDB();
+    public function query() {
+        $class = get_called_class();
 
-        return new Database($db);
+        if($class::$table) {
+            $table = $class::$table;
+        } else {
+            $classArr = explode('\\', $class);
+            $table = strtolower($classArr[sizeof($classArr) - 1]) . 's';
+        }
+
+        if($class::$fillable) {
+            $fillableFields = $class::$fillable;
+        }
+
+        $queryBuilder = new Database(self::connectDB(), $fillableFields);
+        $queryBuilder->table($table);
+
+        return $queryBuilder;
     }
 }

@@ -6,6 +6,7 @@ use PDO;
 
 class Database {
     private $db;
+    private $fillableFields;
     private $table;
     private $fields;
     private $where;
@@ -15,8 +16,9 @@ class Database {
     private $statement;
     private $bindValuesArray;
 
-    public function __construct($db) {
+    public function __construct($db, $fillableFields) {
         $this->db = $db;
+        $this->fillableFields = $fillableFields;
     }
 
     public function __destruct() {
@@ -168,6 +170,9 @@ class Database {
         $index = 0;
 
         foreach($array as $key => $value) {
+            if(array_search($key, $this->fillableFields) === false) {
+                throw new \Exception($key . ' is not fillable!');
+            }
             $keys .= $key;
             // Bind Key Value Pairs
             $bindKey = str_replace(' ', '_', $value);
@@ -219,6 +224,9 @@ class Database {
         $index = 0;
 
         foreach($array as $key => $value) {
+            if(array_search($key, $this->fillableFields) === false) {
+                throw new \Exception($key . ' is not fillable!');
+            }
             // Bind Key Value Pairs
             $bindKey = str_replace(' ', '_', $value);
             $this->bindValuesArray[':' . $bindKey] = $value;
