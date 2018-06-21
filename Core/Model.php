@@ -18,4 +18,10 @@ abstract class Model {
 
         return $db;
     }
+
+    public static function DB() {
+        $db = self::getDB();
+
+        return new Database($db);
+    }
 }
