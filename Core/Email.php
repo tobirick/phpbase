@@ -9,7 +9,7 @@ class Email {
     private $mail;
 
     public function __construct() {
-        $this->mail = new PHPMailer();
+        $this->mail = new PHPMailer(true);
     }
 
     public function setSMTP() {

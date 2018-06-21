@@ -3,7 +3,8 @@
         "altorouter/altorouter": "^1.2",
         "philo/laravel-blade": "^3.1",
         "vlucas/phpdotenv": "^2.4",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "filp/whoops": "^2.2"
     },
     "autoload": {
         "psr-4": {

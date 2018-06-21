@@ -11,7 +11,8 @@ class IndexController extends BaseController {
         Flash::message('Some useful Flash Message you can add.')->success()->set();
 
         //$email = new Email();
-        //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body')->send();
+        //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
+        //$email->send();
 
         self::view('index', [
             'testVar' => 'testVar Content',
