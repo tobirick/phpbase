@@ -34,6 +34,8 @@ abstract class Model {
 
         if($class::$fillable) {
             $fillableFields = $class::$fillable;
+        } else {
+            $fillableFields = [];
         }
 
         $queryBuilder = new Database(self::connectDB(), $fillableFields);

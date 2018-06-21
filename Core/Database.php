@@ -22,7 +22,6 @@ class Database {
     }
 
     public function __destruct() {
-        $this->table = '';
         $this->fields = '';
         $this->where = '';
         $this->query = '';
@@ -170,7 +169,7 @@ class Database {
         $index = 0;
 
         foreach($array as $key => $value) {
-            if(array_search($key, $this->fillableFields) === false) {
+            if(sizeof($this->fillableFields) > 0 && array_search($key, $this->fillableFields) === false) {
                 throw new \Exception($key . ' is not fillable!');
             }
             $keys .= $key;
@@ -224,7 +223,7 @@ class Database {
         $index = 0;
 
         foreach($array as $key => $value) {
-            if(array_search($key, $this->fillableFields) === false) {
+            if(sizeof($this->fillableFields) > 0 && array_search($key, $this->fillableFields) === false) {
                 throw new \Exception($key . ' is not fillable!');
             }
             // Bind Key Value Pairs

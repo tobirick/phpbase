@@ -15,15 +15,14 @@ class IndexController extends BaseController {
         //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
         //$email->send();
         
-        $user = new User();
+        //$user = new User();
 
-        $users = $user->query()->select()->get();
+        //$users = $user->query()->select()->get();
 
-        /*
         $users = User::query()->insert([
             'first_name' => 'Tobi',
             'last_name' => 'Rick'
-        ]);*/
+        ]);
 
         var_dump($users);
 
