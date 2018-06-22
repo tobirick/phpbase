@@ -9,6 +9,7 @@ class BaseController {
     private static $sessionClass;
     private static $flashClass;
     private static $ajaxClass;
+    private static $validateClass;
 
     public static function view($template, $args = []) {
         self::$template = $template;
@@ -60,5 +61,12 @@ class BaseController {
             self::$ajaxClass = new Ajax();
         }
         return self::$ajaxClass;
+    }
+
+    public static function validate($providedValues, $providedValidations) {
+        if(!self::$validateClass) {
+            self::$validateClass = new Validator($providedValues, $providedValidations);
+        }
+        return self::$validateClass;
     }
 }
