@@ -113,7 +113,11 @@ class Database {
     }
 
     public function select($fields = '*') {
-        $this->fields = $fields;
+        if(is_array($fields)) {
+            $this->fields = implode(' ,', $fields);
+        } else {
+            $this->fields = $fields;
+        } 
 
         return $this;
     }

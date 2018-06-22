@@ -43,7 +43,7 @@ class IndexController extends BaseController {
         $user->query()->insert();
         */
 
-        $users = User::query()->getOne();
+        $users = User::query()->select(['id', 'first_name'])->where('first_name', 'Tobi')->getOne();
 
         /*
         $users = User::query()->insert([
