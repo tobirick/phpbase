@@ -159,6 +159,21 @@ class Database {
         return $result;
     }
 
+    public function getByID($id) {
+        if(!$this->fields) {
+            $this->fields = '*';
+        }
+        $this->where('id', $id);
+        $this->buildSelectQuery();
+    
+        $this->statement = $this->db->prepare($this->query);
+        $this->bindValues();
+        $this->statement->execute();
+
+        $result = $this->statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function insert($array = '') {
         if($array) {
             if(!is_array($array)) {
@@ -211,10 +226,9 @@ class Database {
     public function insertAndGet($array = '') {
         if($this->insert($array)) {
             $id = $this->db->lastInsertId();
-            
+
             $this->bindValuesArray = [];
-            $this->where('id', $id);
-            return $this->get();
+            return $this->getByID($id);
         } else {
             return false;
         }

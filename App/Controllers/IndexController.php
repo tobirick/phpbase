@@ -34,14 +34,16 @@ class IndexController extends BaseController {
         //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
         //$email->send();
         
+        /*
         $user = new User([
             'first_name' => 'Testuser',
             'last_name' => 'Testuser2'
         ]);
 
         $user->query()->insert();
+        */
 
-        //$users = User::query()->select()->get();
+        $users = User::query()->getByID(32);
 
         /*
         $users = User::query()->insert([
@@ -50,7 +52,7 @@ class IndexController extends BaseController {
         ]);
         */
 
-        //var_dump($users);
+        var_dump($users);
 
         self::view('index', [
             'testVar' => 'testVar Content',
