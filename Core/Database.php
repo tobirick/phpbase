@@ -159,6 +159,20 @@ class Database {
         return $result;
     }
 
+    public function getOne() {
+        if(!$this->fields) {
+            $this->fields = '*';
+        }
+        $this->buildSelectQuery();
+    
+        $this->statement = $this->db->prepare($this->query);
+        $this->bindValues();
+        $this->statement->execute();
+
+        $result = $this->statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getByID($id) {
         if(!$this->fields) {
             $this->fields = '*';
