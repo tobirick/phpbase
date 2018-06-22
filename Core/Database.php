@@ -15,10 +15,12 @@ class Database {
     private $update;
     private $statement;
     private $bindValuesArray;
+    private $model;
 
-    public function __construct($db, $fillableFields) {
+    public function __construct($db, $fillableFields, $model) {
         $this->db = $db;
         $this->fillableFields = $fillableFields;
+        $this->model = $model;
     }
 
     public function __destruct() {
@@ -159,9 +161,16 @@ class Database {
         return $result;
     }
 
-    public function insert($array) {
-        if(!is_array($array)) {
-            throw new \Exception('Please provide a valid Array.');
+    public function insert($array = '') {
+        if($array) {
+            if(!is_array($array)) {
+                throw new \Exception('Please provide a valid Array.');
+            }
+        } else {
+            if(!is_array($this->model)) {
+                throw new \Exception('Please provide a valid Array.');
+            }
+            $array = $this->model;
         }
 
         $keys = '(';

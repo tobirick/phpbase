@@ -10,7 +10,7 @@ class User extends Model {
     protected static $fillable = ['first_name', 'last_name'];
 
     public function test() {
-        $users = $this->query()->insert([
+        $users = self::query()->insert([
             'first_name' => 'Tobi',
             'last_name' => 'Rick'
         ]);
