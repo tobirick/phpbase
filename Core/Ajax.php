@@ -3,25 +3,25 @@
 namespace Core;
 
 class Ajax {
-    private static $dataToSend;
+    private $dataToSend;
 
-    public static function getJSON() {
+    public function getJSON() {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
 
         return $decoded;
     }
     
-    public static function send($data) {
-        self::$dataToSend = $data;
-        return new static();
+    public function send($data) {
+        $this->dataToSend = $data;
+        return $this;
     }
 
-    public static function json() {
+    public function json() {
         header('Content-type: application/json');
 
-        echo json_encode(self::$dataToSend);
+        echo json_encode($this->dataToSend);
 
-        self::$dataToSend = '';
+        $this->dataToSend = '';
     }
 }

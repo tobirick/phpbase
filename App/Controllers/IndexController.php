@@ -9,7 +9,7 @@ use \App\Models\User;
 
 class IndexController extends BaseController {  
     public function create() {
-        $ajaxData = Ajax::getJSON();
+        $ajaxData = self::ajax()->getJSON();
 
         $user = new User($ajaxData);
 
@@ -24,11 +24,13 @@ class IndexController extends BaseController {
             $data['message'] = 'There was a error!';
         }
 
-        Ajax::send($data)->json();
+        self::ajax()->send($data)->json();
     }
 
     public function index($params) {
-        Flash::message('Some useful Flash Message you can add.')->success()->set();
+        self::flash()->message('Some useful Flash Message you can add.')->success()->set();
+
+        var_dump(self::session()->get('flash'));
 
         //$email = new Email();
         //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
@@ -58,13 +60,5 @@ class IndexController extends BaseController {
             'testVar' => 'testVar Content',
             'id' => $params['id']
         ])->render();
-    }
-
-    public function ajax() {
-        $ajaxData = Ajax::getJSON();
-
-        $data['datatest'] = 'test';
-
-        Ajax::send($data)->json();
     }
 }

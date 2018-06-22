@@ -4,7 +4,7 @@ use \Core\Middleware;
 use \Core\BaseController;
 
 $router->map('GET', '/[i:id]', Middleware::requireLogin('IndexController@index'));
-$router->map('POST', '/', Middleware::requireLogin('IndexController@ajax'));
+$router->map('POST', '/', Middleware::requireLogin('IndexController@ajaxAction'));
 
 $router->map('POST', '/create', Middleware::requireLogin('IndexController@create'));
 

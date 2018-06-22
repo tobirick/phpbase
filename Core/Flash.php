@@ -3,31 +3,31 @@
 namespace Core;
 
 class Flash {
-    private static $flash;
+    private $flash;
     
-    public static function message($message) {
-        self::$flash['message'] = $message;
+    public function message($message) {
+        $this->flash['message'] = $message;
 
-        return new static();
+        return $this;
     }
 
-    public static function error() {
-        self::$flash['type'] = 'error';
+    public function error() {
+        $this->flash['type'] = 'error';
 
-        return new static();
+        return $this;
     }
 
-    public static function success() {
-        self::$flash['type'] = 'success';
+    public function success() {
+        $this->flash['type'] = 'success';
 
-        return new static();
+        return $this;
     }
 
-    public static function set() {
-        $_SESSION['flash'] = self::$flash;
+    public function set() {
+        $_SESSION['flash'] = $this->flash;
     }
 
-    public static function remove() {
-        $_SESSION['flash'] = '';
+    public function remove() {
+        unset($_SESSION['flash']);
     }
 }
