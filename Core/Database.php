@@ -123,9 +123,8 @@ class Database {
             $whereStr = '';
             $index = 0;
             foreach($key as $whereKey => $whereValue) {
-                $bindKey = str_replace(' ', '_', $whereValue);
-                $this->bindValuesArray[':' . $bindKey] = $whereValue;
-                $whereStr .= $whereKey . ' = :' . $bindKey;
+                $this->bindValuesArray[':' . $key] = $whereValue;
+                $whereStr .= $whereKey . ' = :' . $key;
 
                 if(sizeof($key) !== $index + 1) {
                     $whereStr .= ' AND ';
@@ -135,9 +134,8 @@ class Database {
             }
             $this->where = $whereStr;
         } else if ($key && $value) {
-            $bindKey = str_replace(' ', '_', $value);
-            $this->bindValuesArray[':' . $bindKey] = $value;
-            $this->where = $key . ' = :' . $bindKey;
+            $this->bindValuesArray[':' . $key] = $value;
+            $this->where = $key . ' = :' . $key;
         } else if ($key) {
             $this->where = $key;
         } else {
@@ -183,9 +181,8 @@ class Database {
             }
             $keys .= $key;
             // Bind Key Value Pairs
-            $bindKey = str_replace(' ', '_', $value);
-            $values .= ':' . $bindKey;
-            $this->bindValuesArray[':' . $bindKey] = $value;
+            $values .= ':' . $key;
+            $this->bindValuesArray[':' . $key] = $value;
 
             if(sizeof($array) === $index + 1) {
                 $keys .= ')';
@@ -206,6 +203,18 @@ class Database {
 
         if($this->statement->execute()) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function insertAndGet($array = '') {
+        if($this->insert($array)) {
+            $id = $this->db->lastInsertId();
+            
+            $this->bindValuesArray = [];
+            $this->where('id', $id);
+            return $this->get();
         } else {
             return false;
         }
@@ -236,10 +245,9 @@ class Database {
                 throw new \Exception($key . ' is not fillable!');
             }
             // Bind Key Value Pairs
-            $bindKey = str_replace(' ', '_', $value);
-            $this->bindValuesArray[':' . $bindKey] = $value;
+            $this->bindValuesArray[':' . $key] = $value;
 
-            $updateStr .= $key . ' = :' . $bindKey;
+            $updateStr .= $key . ' = :' . $key;
 
             if(sizeof($array) !== $index + 1) {
                 $updateStr .= ',';

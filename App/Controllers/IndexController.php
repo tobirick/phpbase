@@ -8,6 +8,25 @@ use \Core\Email;
 use \App\Models\User;
 
 class IndexController extends BaseController {  
+    public function create() {
+        $ajaxData = Ajax::getJSON();
+
+        $user = new User($ajaxData);
+
+        $data = [];
+
+        $createdUser = $user->query()->insertAndGet();
+
+        if($createdUser) {
+            $data['message'] = 'Successfully created!';
+            $data['user'] = $createdUser;
+        } else {
+            $data['message'] = 'There was a error!';
+        }
+
+        Ajax::send($data)->json();
+    }
+
     public function index($params) {
         Flash::message('Some useful Flash Message you can add.')->success()->set();
 
