@@ -53,16 +53,16 @@ class IndexController extends BaseController {
         //var_dump($users);
 
         $data = [
-            'first_name' => 'Test',
-            'last_name' => ''
+            'first_name' => '',
+            'last_name' => 'dasdasdasdasda'
         ];
 
+        /*
         $validator = self::validate($data, [
-            'first_name' => 'required',
-            'last_name' => 'required'
+            'first_name' => 'required|minlength:100',
+            'last_name' => 'required|maxlength:5'
         ]);
-
-        //var_dump($validator);
+        */
 
         self::view('index', [
             'testVar' => 'testVar Content',

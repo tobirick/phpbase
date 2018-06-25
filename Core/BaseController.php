@@ -28,6 +28,11 @@ class BaseController {
             Flash::remove();
         }
 
+        if(isset($_SESSION['errors'])) {
+            Shares::add('errors', $_SESSION['errors']);
+            unset($_SESSION['errors']);
+        }
+
         // Add your shares (Available in every View)
         Shares::add('share1', 'Share Test 1');
         Shares::add('share2', 'Share Test 2');
@@ -67,6 +72,11 @@ class BaseController {
         if(!self::$validateClass) {
             self::$validateClass = new Validator($providedValues, $providedValidations);
         }
-        return self::$validateClass;
+        
+        $errors = self::$validateClass->validate();
+
+        if($errors) {
+            $_SESSION['errors'] = $errors;
+        }
     }
 }

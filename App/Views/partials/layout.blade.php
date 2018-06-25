@@ -16,6 +16,7 @@
 
     @include('partials.navigation')
     <div id="content">
+        @include('includes.errors')
         @yield('content')
     </div>
 
