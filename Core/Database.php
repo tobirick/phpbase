@@ -5,6 +5,7 @@ namespace Core;
 use PDO;
 
 class Database {
+    private $modelNamespace;
     private $db;
     private $fillableFields;
     private $table;
@@ -15,12 +16,13 @@ class Database {
     private $update;
     private $statement;
     private $bindValuesArray;
-    private $model;
+    private $newModel;
 
-    public function __construct($db, $fillableFields, $model) {
+    public function __construct($db, $fillableFields, $newModel, $calledClass) {
         $this->db = $db;
         $this->fillableFields = $fillableFields;
-        $this->model = $model;
+        $this->newModel = $newModel;
+        $this->modelNamespace = $calledClass;
     }
 
     public function __destruct() {
@@ -159,7 +161,7 @@ class Database {
         $this->bindValues();
         $this->statement->execute();
 
-        $result = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->statement->fetchAll(PDO::FETCH_CLASS, $this->modelNamespace);
         return $result;
     }
 
@@ -172,8 +174,9 @@ class Database {
         $this->statement = $this->db->prepare($this->query);
         $this->bindValues();
         $this->statement->execute();
+        $this->statement->setFetchMode(PDO::FETCH_CLASS, $this->modelNamespace);
 
-        $result = $this->statement->fetch(PDO::FETCH_ASSOC);
+        $result = $this->statement->fetch();
         return $result;
     }
 
@@ -186,9 +189,9 @@ class Database {
     
         $this->statement = $this->db->prepare($this->query);
         $this->bindValues();
-        $this->statement->execute();
-
-        $result = $this->statement->fetch(PDO::FETCH_ASSOC);
+        $this->statement->setFetchMode(PDO::FETCH_CLASS, $this->modelNamespace);
+        
+        $result = $this->statement->fetch();
         return $result;
     }
 
@@ -198,10 +201,10 @@ class Database {
                 throw new \Exception('Please provide a valid Array.');
             }
         } else {
-            if(!is_array($this->model)) {
+            if(!is_array($this->newModel)) {
                 throw new \Exception('Please provide a valid Array.');
             }
-            $array = $this->model;
+            $array = $this->newModel;
         }
 
         $keys = '(';

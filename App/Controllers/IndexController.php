@@ -41,7 +41,7 @@ class IndexController extends BaseController {
         $user->query()->insert();
         */
 
-        //$users = User::query()->select(['id', 'first_name'])->where('first_name', 'Tobi')->getOne();
+        $users = User::query()->get();
 
         /*
         $users = User::query()->insert([
@@ -50,7 +50,7 @@ class IndexController extends BaseController {
         ]);
         */
 
-        //var_dump($users);
+        var_dump($users);
 
         $data = [
             'first_name' => 'Test',
@@ -62,7 +62,7 @@ class IndexController extends BaseController {
             'last_name' => 'required'
         ]);
 
-        var_dump($validator);
+        //var_dump($validator);
 
         self::view('index', [
             'testVar' => 'testVar Content',

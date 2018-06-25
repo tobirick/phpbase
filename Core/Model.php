@@ -6,22 +6,23 @@ use PDO;
 abstract class Model {
     protected static $table;
     protected static $fillable = [];
+    protected static $newModel;
 
     public function __construct($data = []) {
         $class = get_called_class();
         $fillableFields = $class::$fillable;
 
-        $model = [];
+        $newModel = [];
 
         foreach($data as $key => $value) {
             if(array_search($key, $fillableFields) === false) {
                 throw new \Exception($key . ' is not fillable!');
             } else {
-                $model[$key] = $value;
+                $newModel[$key] = $value;
             }
         }
 
-        $this->model = $data;
+        self::$newModel = $data;
     }
 
     private function connectDB() {
@@ -55,13 +56,7 @@ abstract class Model {
             $fillableFields = [];
         }
 
-        if(isset($this)) {
-            $model = $this->model ? $this->model : '';
-        } else {
-            $model = '';
-        }
-
-        $queryBuilder = new Database(self::connectDB(), $fillableFields, $model);
+        $queryBuilder = new Database(self::connectDB(), $fillableFields, self::$newModel, $class);
         $queryBuilder->table($table);
 
         return $queryBuilder;

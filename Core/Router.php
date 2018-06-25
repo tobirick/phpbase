@@ -15,6 +15,8 @@ class Router {
     }
 
     public function matchRoute() {
+        var_dump($this->match);
+        exit;
         if($this->match) {
             $this->params = $this->match['params'];
             if(is_string($this->match['target'])) {
