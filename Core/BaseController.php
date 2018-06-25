@@ -33,6 +33,8 @@ class BaseController {
             unset($_SESSION['errors']);
         }
 
+        Shares::add('Auth', new Auth);
+
         // Add your shares (Available in every View)
         Shares::add('share1', 'Share Test 1');
         Shares::add('share2', 'Share Test 2');

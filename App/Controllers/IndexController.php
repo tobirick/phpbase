@@ -61,12 +61,12 @@ class IndexController extends BaseController {
             'last_name' => 'dasdasdasdasda'
         ];
 
-        /*
+        
         $validator = self::validate($data, [
             'first_name' => 'required|minlength:100',
             'last_name' => 'required|maxlength:5'
         ]);
-        */
+        
 
         self::view('index', [
             'testVar' => 'testVar Content',
