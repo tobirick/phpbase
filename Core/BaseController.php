@@ -47,6 +47,12 @@ class BaseController {
         header('Location: ' . $redirectTo  );
     }
 
+    public static function redirectToRoute($routeName, $routeParams = []) {
+        $url = Router::route($routeName, $routeParams);
+        
+        self::redirect($url);
+    }
+
     public static function session() {
         if(!self::$sessionClass) {
             self::$sessionClass = new Session();

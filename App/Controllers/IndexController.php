@@ -5,7 +5,11 @@ use \Core\BaseController;
 use \Core\Email;
 use \App\Models\User;
 
-class IndexController extends BaseController {  
+class IndexController extends BaseController {
+    public function index() {
+        self::redirectToRoute('testroute', ['id' => 123]);
+    }  
+
     public function create() {
         $ajaxData = self::ajax()->getJSON();
 
@@ -25,7 +29,7 @@ class IndexController extends BaseController {
         self::ajax()->send($data)->json();
     }
 
-    public function index($params) {
+    public function test($params) {
         self::flash()->message('Some useful Flash Message you can add.')->success()->set();
 
         //$email = new Email();
