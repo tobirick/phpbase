@@ -18,17 +18,20 @@ class CSRF {
     }
 
     public static function checkToken() {
-        if (!isset($_POST['csrf_token'])) {
-            header('HTTP/1.0 403 Forbidden');
-            exit('Missing CSRF token');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (!isset($_POST['_csrftoken'])) {
+                header('HTTP/1.0 403 Forbidden');
+                exit('Missing CSRF token');
+            }
  
             // Get the token from the session and remove it
             $token = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
-
-            if ($_POST['csrf_token'] != $token) {
+            unset($_SESSION['csrf_token']);
+ 
+            if ($_POST['_csrftoken'] != $token) {
                 header('HTTP/1.0 403 Forbidden');
                 exit('Invalid CSRF token');
             }  
-        }   
+        }  
     }
 }

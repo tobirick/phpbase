@@ -7,7 +7,6 @@ class Middleware {
         if(isset($_SESSION['userid'])) {
             return $ctrl;
         }
-        // Redirect/Send Flash Message, etc. ...
-        return $ctrl;
+        return 'AuthController@loginIndex';
     }
 }

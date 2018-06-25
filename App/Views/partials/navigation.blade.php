@@ -1,7 +1,11 @@
 <header>
     <ul>
-        <li><a href="{{ route('testroute', ['id' => 123]) }}">Menu 1</a></li>
-        <li><a href="">Menu 2</a></li>
-        <li><a href="">Menu 3</a></li>
+        @if(!$Auth->check())
+        <li><a href="{{ route('login.index') }}">Login</a></li>
+        <li><a href="{{ route('register.index') }}">Register</a></li>
+        @endif
+        @if($Auth->check())
+        <li><a href="{{ route('logout') }}">Logout</a></li>
+        @endif
     </ul>
 </header>

@@ -19,6 +19,7 @@ abstract class Model {
                 throw new \Exception($key . ' is not fillable!');
             } else {
                 $newModel[$key] = $value;
+                $this->$key = $value;
             }
         }
 

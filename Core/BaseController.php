@@ -11,6 +11,12 @@ class BaseController {
     private static $ajaxClass;
     private static $validateClass;
 
+    public function __construct() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::checkToken();
+        }
+    }
+
     public static function view($template, $args = []) {
         self::$template = $template;
         self::$args = $args;
@@ -19,20 +25,18 @@ class BaseController {
     }
 
     public static function render() {
-        if(isset($_SESSION['csrf_token'])) {
-            Shares::add('csrf_token', $_SESSION['csrf_token']);
+        if(!isset($_SESSION['csrf_token'])) {
+            CSRF::generateToken();
         }
-
+        Shares::add('csrf_token', $_SESSION['csrf_token']);
         if(isset($_SESSION['flash'])) {
             Shares::add('flash', $_SESSION['flash']);
             Flash::remove();
         }
-
         if(isset($_SESSION['errors'])) {
             Shares::add('errors', $_SESSION['errors']);
             unset($_SESSION['errors']);
         }
-
         Shares::add('Auth', new Auth);
 
         // Add your shares (Available in every View)
@@ -86,5 +90,7 @@ class BaseController {
         if($errors) {
             $_SESSION['errors'] = $errors;
         }
+
+        return $errors;
     }
 }

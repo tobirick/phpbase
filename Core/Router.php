@@ -23,7 +23,8 @@ class Router {
                 $this->controller = $this->namespace . $details[0];
                 $this->method = $details[1];
     
-                call_user_func([$this->controller, $this->method], $this->params);
+                $ctrl = new $this->controller;
+                call_user_func([$ctrl, $this->method], $this->params);
 
                 return;
             } else if (is_callable($this->match['target'])) {
