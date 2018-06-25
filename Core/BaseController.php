@@ -11,6 +11,8 @@ class BaseController {
     private static $ajaxClass;
     private static $validateClass;
 
+    public static $router;
+
     public static function view($template, $args = []) {
         self::$template = $template;
         self::$args = $args;
@@ -33,7 +35,7 @@ class BaseController {
         Shares::add('share2', 'Share Test 2');
         self::$shares = Shares::get();
         
-        $view = new View(self::$template, self::$args, self::$shares);
+        $view = new View(self::$router, self::$template, self::$args, self::$shares);
         $view->render();
     }
 

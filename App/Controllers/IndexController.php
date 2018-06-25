@@ -50,7 +50,7 @@ class IndexController extends BaseController {
         ]);
         */
 
-        var_dump($users);
+        //var_dump($users);
 
         $data = [
             'first_name' => 'Test',

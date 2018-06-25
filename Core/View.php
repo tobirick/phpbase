@@ -10,8 +10,10 @@ class View {
     private $template;
     private $args;
     private $shares;
+    private $router;
 
-    public function __construct($template, $args = [], $shares = '') {
+    public function __construct($router, $template, $args = [], $shares = '') {
+        $this->router = $router;
         $this->template = $template;
         $this->args = $args;
         $this->shares = $shares;
@@ -24,7 +26,7 @@ class View {
             $this->generateShares();
         }
 
-        $html = $this->blade->view()->make($this->template, $this->args)->render();
+        $html = $this->blade->view()->make($this->template, $this->args)->with('router', $this->router)->render();
 
         $buffer = $this->sanitaze($html);
 
