@@ -3,17 +3,16 @@ namespace Core;
 
 class Router {
     private $namespace = 'App\Controllers\\';
-    private $router;
     private $controller;
     private $method;
     private $params;
     private $match;
 
-    public function __construct($router) {
-        $this->router = $router;
-        $this->match = $this->router->match();
+    private static $router;
 
-        $this->matchRoute();
+    public function __construct($router) {
+        self::$router = $router;
+        $this->match = self::$router->match();
     }
 
     public function matchRoute() {
@@ -23,17 +22,14 @@ class Router {
                 $details = explode("@", $this->match['target']);
                 $this->controller = $this->namespace . $details[0];
                 $this->method = $details[1];
-
-                $ctrl = new $this->controller;
-                $ctrl::$router = $this;
     
-                call_user_func([$ctrl, $this->method], $this->params);
+                call_user_func([$this->controller, $this->method], $this->params);
 
                 return;
             } else if (is_callable($this->match['target'])) {
                 $this->method = $this->match['target'];
 
-                call_user_func($ctrl, $this->params, $this);
+                call_user_func($this->method, $this->params);
                 
                 return;
             }
@@ -43,6 +39,6 @@ class Router {
     }
 
     public function route($routeName, $routeParams = []) {
-        return $this->router->generate($routeName, $routeParams);
+        return self::$router->generate($routeName, $routeParams);
     }
 }
