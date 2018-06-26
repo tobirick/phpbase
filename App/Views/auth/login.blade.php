@@ -8,4 +8,5 @@
         <input type="password" placeholder="Password" name="user[password]">
         <button type="Submit">Submit</button>
     </form>
+    <a href="{{ route('password.forgot') }}">Forgot your password?</a>
 @stop

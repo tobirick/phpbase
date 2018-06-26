@@ -17,7 +17,7 @@ class View {
         $this->shares = $shares;
     }
 
-    public function render() {
+    public function buildTemplate() {
         $this->blade = new Blade($this->views, $this->cache);
         
         if($this->shares) {
@@ -26,9 +26,21 @@ class View {
 
         $html = $this->blade->view()->make($this->template, $this->args)->render();
 
+        return $html;
+    }
+
+    public function render() {
+        $html = $this->buildTemplate();
+
         $buffer = $this->sanitaze($html);
 
         echo $buffer;
+    }
+
+    public function get() {
+        $html = $this->buildTemplate();
+
+        return $html;
     }
 
      public function sanitaze($buffer) {

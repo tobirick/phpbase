@@ -2,8 +2,8 @@
 namespace Core;
 
 class BaseController {
-    private static $template;
-    private static $args;
+    private $template;
+    private $args;
     private static $shares;
 
     private static $sessionClass;
@@ -17,14 +17,19 @@ class BaseController {
         }
     }
 
-    public static function view($template, $args = []) {
-        self::$template = $template;
-        self::$args = $args;
+    public function view($template, $args = []) {
+        $this->template = $template;
+        $this->args = $args;
 
-        return new static();
+        return $this;
     }
 
-    public static function render() {
+    public function getTemplate() {
+        $view = new View($this->template, $this->args, '');
+        return $view->get();
+    }
+
+    public function render() {
         if(!isset($_SESSION['csrf_token'])) {
             CSRF::generateToken();
         }
@@ -44,7 +49,7 @@ class BaseController {
         Shares::add('share2', 'Share Test 2');
         self::$shares = Shares::get();
         
-        $view = new View(self::$template, self::$args, self::$shares);
+        $view = new View($this->template, $this->args, self::$shares);
         $view->render();
     }
 

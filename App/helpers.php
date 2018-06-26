@@ -6,7 +6,9 @@ function ddt($data) {
 }
 
 function route($routeName, $routeParams = []) {
-    return Core\Router::route($routeName, $routeParams);
+    $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+    return $url . Core\Router::route($routeName, $routeParams);
 }
 
 function csrf() {

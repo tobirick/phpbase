@@ -7,11 +7,11 @@ use \Core\Model;
 class User extends Model {
     
     protected static $table = 'users';
-    protected static $fillable = ['email', 'password'];
+    protected static $fillable = ['email', 'password', 'password_reset_token', 'password_reset_expiry_date'];
 
     public $email;
 
-    private function checkIfUserExists() {
+    public function checkIfUserExists() {
         $user = self::query()->select()->where('email', $this->email)->get();
 
         if($user) {

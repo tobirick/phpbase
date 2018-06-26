@@ -68,7 +68,7 @@ class IndexController extends BaseController {
         ]);
         
 
-        self::view('index', [
+        $this->view('index', [
             'testVar' => 'testVar Content',
             'id' => $params['id']
         ])->render();

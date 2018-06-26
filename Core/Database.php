@@ -10,7 +10,7 @@ class Database {
     private $fillableFields;
     private $table;
     private $fields;
-    private $where;
+    private $where = '';
     private $query;
     private $insert;
     private $update;
@@ -96,6 +96,9 @@ class Database {
                     case 'boolean':
                         $paramType = \PDO::PARAM_BOOL;
                         break;
+                    case 'NULL':
+                        $paramType = \PDO::PARAM_NULL;
+                        break;
                     default:
                         $paramType = \PDO::PARAM_STR;
                 }
@@ -129,8 +132,8 @@ class Database {
             $whereStr = '';
             $index = 0;
             foreach($key as $whereKey => $whereValue) {
-                $this->bindValuesArray[':' . $key] = $whereValue;
-                $whereStr .= $whereKey . ' = :' . $key;
+                $this->bindValuesArray[':' . $whereKey] = $whereValue;
+                $whereStr .= $whereKey . ' = :' . $whereKey;
 
                 if(sizeof($key) !== $index + 1) {
                     $whereStr .= ' AND ';
@@ -138,12 +141,18 @@ class Database {
 
                 $index++;
             }
-            $this->where = $whereStr;
+            $this->where .= $whereStr;
         } else if ($key && $value) {
             $this->bindValuesArray[':' . $key] = $value;
-            $this->where = $key . ' = :' . $key;
+            if($this->where) {
+                $this->where .= ' AND ';
+            }
+            $this->where .= $key . ' = :' . $key;
         } else if ($key) {
-            $this->where = $key;
+            if($this->where) {
+                $this->where .= ' AND ';
+            }
+            $this->where .= $key;
         } else {
             throw new \Exception('Add valid WHERE Condition.');
         }
@@ -280,9 +289,13 @@ class Database {
                 throw new \Exception($key . ' is not fillable!');
             }
             // Bind Key Value Pairs
-            $this->bindValuesArray[':' . $key] = $value;
-
-            $updateStr .= $key . ' = :' . $key;
+            if(is_array($this->bindValuesArray) && array_key_exists(':' . $key, $this->bindValuesArray)) {
+                $this->bindValuesArray[':' . $key . '_'] = $value;
+                $updateStr .= $key . ' = :' . $key . '_';
+            } else {
+                $this->bindValuesArray[':' . $key] = $value;
+                $updateStr .= $key . ' = :' . $key;
+            }
 
             if(sizeof($array) !== $index + 1) {
                 $updateStr .= ',';
