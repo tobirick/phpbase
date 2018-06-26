@@ -29,6 +29,7 @@ class AuthController extends BaseController {
                 if($success === true) {
                     self::redirectToRoute('index');
                 } else {
+                    self::flash()->message('Wrong credentials!')->error()->set();
                     self::redirectToRoute('login.index');
                 }
             }
@@ -58,9 +59,10 @@ class AuthController extends BaseController {
                     'email' => $_POST['user']['email']
                 ]);
                 $success = $user->register($_POST['user']['password']);
-                if($success === false) {
+                if($success === true) {
                     self::redirectToRoute('login.index');
                 } else {
+                    self::flash()->message('Something went wrong!')->error()->set();
                     self::redirectToRoute('register.index');
                 }
             }
@@ -117,9 +119,9 @@ class AuthController extends BaseController {
                     $email = new EMail();
                     $email->setHTML();
                     $email->from('password@phpbase.local')->to($_POST['user']['email'])->subject('Password Reset Link')->body($emailHTML);
-                    $email->send();
+                    //$email->send();
 
-                    self::flash()->message('Check your emails!')->success()->set();
+                    self::flash()->message('Check your E-Mails. We send you a Password Reset Link!')->success()->set();
                     self::redirectToRoute('login.index');
                 } else {
                     self::flash()->message('User with provided E-Mail does not exist!')->error()->set();
