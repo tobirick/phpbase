@@ -3,27 +3,35 @@
 namespace Core;
 
 class Validator {
+    private $lang;
     private $providedValidations;
     private $providedValues;
-    private $validations = [
-        'required' => [
-            'message' => 'is required',
-            'rule' => 'checkRequired'
-        ],
-        'maxlength' => [
-            'message' => 'is too long',
-            'rule' => 'checkMaxLength'
-        ],
-        'minlength' => [
-            'message' => 'is too short',
-            'rule' => 'checkMinLength'
-        ]
-    ];
+    private $validations;
     private $errors = [];
     
-    public function __construct($providedValues, $providedValidations) {
+    public function __construct($providedValues, $providedValidations, $lang) {
+        $this->lang = $lang;
         $this->providedValues = $providedValues;
         $this->providedValidations = $providedValidations;
+
+        $this->setValidations();
+    }
+
+    private function setValidations() {
+        $this->validations = [
+            'required' => [
+                'message' => $this->lang->getTranslation('is required'),
+                'rule' => 'checkRequired'
+            ],
+            'maxlength' => [
+                'message' => $this->lang->getTranslation('is too long'),
+                'rule' => 'checkMaxLength'
+            ],
+            'minlength' => [
+                'message' => $this->lang->getTranslation('is too short'),
+                'rule' => 'checkMinLength'
+            ]
+        ];
     }
 
     public function validate() {

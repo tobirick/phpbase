@@ -42,9 +42,9 @@ class BaseController {
             Shares::add('errors', $_SESSION['errors']);
             unset($_SESSION['errors']);
         }
-        $lang = Router::$lang;
-        ddt($lang->getAllLanguages());
-        Shares::add('Lang', $lang);
+
+        Shares::add('Lang', Router::$lang);
+
         Shares::add('Auth', new Auth);
 
         // Add your shares (Available in every View)
@@ -65,6 +65,10 @@ class BaseController {
         $url = Router::route($routeName, $routeParams);
         
         self::redirect($url);
+    }
+
+    public static function translate($key) {
+        return Router::$lang->getTranslation($key);
     }
 
     public static function session() {
@@ -90,7 +94,7 @@ class BaseController {
 
     public static function validate($providedValues, $providedValidations) {
         if(!self::$validateClass) {
-            self::$validateClass = new Validator($providedValues, $providedValidations);
+            self::$validateClass = new Validator($providedValues, $providedValidations, Router::$lang);
         }
         
         $errors = self::$validateClass->validate();
