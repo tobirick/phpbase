@@ -18,6 +18,6 @@ if(filter_var(getenv('SHOW_ERROR'), FILTER_VALIDATE_BOOLEAN)) {
 
 // Routing
 $router = new AltoRouter();
-require_once(__DIR__ . './routes.php');
+require_once(__DIR__ . '/routes.php');
 $routeDispatcher = new Router($router);
 $routeDispatcher->matchRoute();

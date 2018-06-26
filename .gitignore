@@ -3,3 +3,5 @@
 .env
 /.git
 launch.json
+/.idea
+composer.lock
