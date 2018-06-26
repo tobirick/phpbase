@@ -115,9 +115,14 @@ class AuthController extends BaseController {
                     ])->getTemplate();
 
                     $email = new EMail();
+                    $email->setHTML();
+                    $email->from('password@phpbase.local')->to($_POST['user']['email'])->subject('Password Reset Link')->body($emailHTML);
+                    $email->send();
 
+                    self::flash()->message('Check your emails!')->success()->set();
                     self::redirectToRoute('login.index');
                 } else {
+                    self::flash()->message('User with provided E-Mail does not exist!')->error()->set();
                     self::redirectToRoute('password.forgot.index');
                 }
             }
@@ -146,8 +151,10 @@ class AuthController extends BaseController {
                 ]);
                 
                 if($user) {
+                    self::flash()->message('Password successfully changed. You can now login with your new password!')->success()->set();
                     self::redirectToRoute('login.index');
                 } else {
+                    self::flash()->message('Somethign went wrong!')->error()->set();
                     $this->view('auth.password.reset', [
                         '_password_reset_token' => $_POST['_password_reset_token']
                     ])->render();
