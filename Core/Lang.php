@@ -49,11 +49,11 @@ class Lang {
     public function getAllLanguages() {
         foreach (new DirectoryIterator(__DIR__ . './../resources/lang') as $lang) {
             if($lang->isDot()) continue;
-            $fileContent = json_decode(file_get_contents(__DIR__ . '/..resources/lang/' . $lang->getBasename('.json') . '.json'), true);
+            $fileContent = json_decode(file_get_contents(__DIR__ . './../resources/lang/' . $lang->getBasename('.json') . '.json'), true);
 
             $this->allLanguagesArray[] = [
-                'shortName' => $lang->getBasename('.json'),
-                'longName' => $fileContent['settings']['name']
+                'iso' => $lang->getBasename('.json'),
+                'name' => $fileContent['settings']['name']
             ];
         }
 

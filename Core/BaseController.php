@@ -43,6 +43,7 @@ class BaseController {
             unset($_SESSION['errors']);
         }
         $lang = Router::$lang;
+        ddt($lang->getAllLanguages());
         Shares::add('Lang', $lang);
         Shares::add('Auth', new Auth);
 
