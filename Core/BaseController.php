@@ -42,6 +42,8 @@ class BaseController {
             Shares::add('errors', $_SESSION['errors']);
             unset($_SESSION['errors']);
         }
+        $lang = Router::$lang;
+        Shares::add('Lang', $lang);
         Shares::add('Auth', new Auth);
 
         // Add your shares (Available in every View)

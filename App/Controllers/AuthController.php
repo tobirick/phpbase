@@ -156,7 +156,7 @@ class AuthController extends BaseController {
                     self::flash()->message('Password successfully changed. You can now login with your new password!')->success()->set();
                     self::redirectToRoute('login.index');
                 } else {
-                    self::flash()->message('Somethign went wrong!')->error()->set();
+                    self::flash()->message('Something went wrong!')->error()->set();
                     $this->view('auth.password.reset', [
                         '_password_reset_token' => $_POST['_password_reset_token']
                     ])->render();

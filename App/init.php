@@ -17,7 +17,7 @@ if(filter_var(getenv('SHOW_ERROR'), FILTER_VALIDATE_BOOLEAN)) {
 }
 
 // Routing
-$router = new AltoRouter();
+$altoRouter = new AltoRouter();
+$router = new Router($altoRouter);
 require_once(__DIR__ . '/routes.php');
-$routeDispatcher = new Router($router);
-$routeDispatcher->matchRoute();
+$router->matchRoute();

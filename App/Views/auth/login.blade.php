@@ -2,6 +2,7 @@
 @section('title', 'Login')
 
 @section('content')
+{{ $Lang->getTranslation('is required') }}
     <form action="{{ route('login') }}" method="POST">
         {{ csrf() }}
         <input type="email" placeholder="E-Mail" name="user[email]">

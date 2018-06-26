@@ -1,0 +1,11 @@
+{
+    "settings": {
+        "name": "English",
+        "iso": "en"
+    },
+    "translations": {
+        "is required": "is required",
+        "is too long": "is too long",
+        "is too short": "is too short"
+    }
+}
