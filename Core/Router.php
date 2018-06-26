@@ -36,7 +36,8 @@ class Router {
             }
         }
 
-        BaseController::view('404')->render();;
+        $ctrl = new BaseController();
+        $ctrl->view('404')->render();;
     }
 
     public function route($routeName, $routeParams = []) {
