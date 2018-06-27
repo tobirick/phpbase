@@ -38,7 +38,8 @@ class Router {
     }
 
     public function matchRoute() {
-        $this->match = self::$router->match();
+        $method = isset($_POST['_method']) && $_POST['_method'] ? $_POST['_method'] : null;
+        $this->match = self::$router->match(null, $method);
         if($this->match) {
             $this->params = $this->match['params'];
 

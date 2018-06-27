@@ -8,6 +8,10 @@ use \Core\Token;
 use \Core\Email;
 
 class AuthController extends BaseController {
+    public function puttest() {
+        ddt('comes from put');
+    }
+
     public function loginIndex() {
         $this->view('auth.login')->render();
     }
