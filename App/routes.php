@@ -20,10 +20,5 @@ $router->get('/', Middleware::userRoute('IndexController@index'), 'index');
 
 $router->get('/create', Middleware::userRoute('IndexController@create'));
 
-$router->get('/test/[i:id]/[a:text]', function($params) {
-    BaseController::view('test', $params)->render();
-});
-
-
 // Tests
 $router->put('/login', 'AuthController@puttest', 'puttest');

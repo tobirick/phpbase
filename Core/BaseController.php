@@ -67,6 +67,10 @@ class BaseController {
         $this->redirect($url);
     }
 
+    public function redirectBack() {
+        header("location:javascript://history.go(-1)");
+    }
+
     public function translate($key) {
         return Router::$lang->getTranslation($key);
     }
