@@ -4,12 +4,12 @@ namespace Core;
 class BaseController {
     private $template;
     private $args;
-    private static $shares;
+    private $shares;
 
-    private static $sessionClass;
-    private static $flashClass;
-    private static $ajaxClass;
-    private static $validateClass;
+    private $sessionClass;
+    private $flashClass;
+    private $ajaxClass;
+    private $validateClass;
 
     public function __construct() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -50,54 +50,54 @@ class BaseController {
         // Add your shares (Available in every View)
         Shares::add('share1', 'Share Test 1');
         Shares::add('share2', 'Share Test 2');
-        self::$shares = Shares::get();
+        $this->shares = Shares::get();
         
-        $view = new View($this->template, $this->args, self::$shares);
+        $view = new View($this->template, $this->args, $this->shares);
         $view->render();
     }
 
-    public static function redirect($url) {
+    public function redirect($url) {
         $redirectTo = $url;
         header('Location: ' . $redirectTo  );
     }
 
-    public static function redirectToRoute($routeName, $routeParams = []) {
+    public function redirectToRoute($routeName, $routeParams = []) {
         $url = Router::route($routeName, $routeParams);
         
-        self::redirect($url);
+        $this->redirect($url);
     }
 
-    public static function translate($key) {
+    public function translate($key) {
         return Router::$lang->getTranslation($key);
     }
 
-    public static function session() {
-        if(!self::$sessionClass) {
-            self::$sessionClass = new Session();
+    public function session() {
+        if(!$this->sessionClass) {
+            $this->sessionClass = new Session();
         }
-        return self::$sessionClass;
+        return $this->sessionClass;
     }
 
-    public static function flash() {
-        if(!self::$flashClass) {
-            self::$flashClass = new Flash();
+    public function flash() {
+        if(!$this->flashClass) {
+            $this->flashClass = new Flash();
         }
-        return self::$flashClass;
+        return $this->flashClass;
     }
 
-    public static function ajax() {
-        if(!self::$ajaxClass) {
-            self::$ajaxClass = new Ajax();
+    public function ajax() {
+        if(!$this->ajaxClass) {
+            $this->ajaxClass = new Ajax();
         }
-        return self::$ajaxClass;
+        return $this->ajaxClass;
     }
 
-    public static function validate($providedValues, $providedValidations) {
-        if(!self::$validateClass) {
-            self::$validateClass = new Validator($providedValues, $providedValidations, Router::$lang);
+    public function validate($providedValues, $providedValidations) {
+        if(!$this->validateClass) {
+            $this->validateClass = new Validator($providedValues, $providedValidations, Router::$lang);
         }
         
-        $errors = self::$validateClass->validate();
+        $errors = $this->validateClass->validate();
 
         if($errors) {
             $_SESSION['errors'] = $errors;

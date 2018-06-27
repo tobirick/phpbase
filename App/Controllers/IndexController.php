@@ -7,11 +7,11 @@ use \App\Models\User;
 
 class IndexController extends BaseController {
     public function index() {
-        self::redirectToRoute('testroute', ['id' => 123]);
+        $this->redirectToRoute('testroute', ['id' => 123]);
     }  
 
     public function create() {
-        $ajaxData = self::ajax()->getJSON();
+        $ajaxData = $this->ajax()->getJSON();
 
         $user = new User($ajaxData);
 
@@ -26,11 +26,11 @@ class IndexController extends BaseController {
             $data['message'] = 'There was a error!';
         }
 
-        self::ajax()->send($data)->json();
+        $this->ajax()->send($data)->json();
     }
 
     public function test($params) {
-        self::flash()->message('Some useful Flash Message you can add.')->success()->set();
+        $this->flash()->message('Some useful Flash Message you can add.')->success()->set();
 
         //$email = new Email();
         //$email->from('')->to('')->setHTML()->subject('This is subject')->body('This is body');
@@ -62,7 +62,7 @@ class IndexController extends BaseController {
         ];
 
         
-        self::validate($data, [
+        $this->validate($data, [
             'first_name' => 'required|minlength:100',
             'last_name' => 'required|maxlength:5'
         ]);
