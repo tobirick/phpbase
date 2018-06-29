@@ -6,3 +6,4 @@
 launch.json
 /.idea
 composer.lock
+package-lock.json

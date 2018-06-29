@@ -1,3 +1,5 @@
+// CSS Files
 import '../styles/main.scss';
 
-console.log('Running');
+// Settings
+import './helpers/utils/axiosDefaultSettings';
