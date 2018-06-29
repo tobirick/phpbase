@@ -15,6 +15,10 @@ function csrf() {
     echo '<input type="hidden" name="_csrftoken" value="' . $_SESSION['csrf_token'] . '">';
 }
 
+function csrf_token() {
+    return $_SESSION['csrf_token'];
+}
+
 function method($method) {
     echo '<input type="hidden" name="_method" value="' . $method . '">';
 }

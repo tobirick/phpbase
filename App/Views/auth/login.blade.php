@@ -2,7 +2,6 @@
 @section('title', 'Login')
 
 @section('content')
-{{ $Lang->getTranslation('is required') }}
     <form action="{{ route('login') }}" method="POST">
         {{ csrf() }}
         <div class="form-row">
