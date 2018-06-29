@@ -1,6 +1,6 @@
 @extends('partials.layout')
-@section('title', '404 Page')
+@section('title', 'Page not found')
 
 @section('content')
-    404 Page Content
+    <h1>Page not found</h1>
 @stop

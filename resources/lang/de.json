@@ -11,6 +11,8 @@
         "Something went wrong!": "Etwas ist schief gelaufen!",
         "Check your E-Mails. We send you a Password Reset Link!": "Überprüfe deine E-Mails. Wir haben dir einen Passwort Reset Link geschickt!",
         "User with provided E-Mail does not exist!": "Benutzer mit eingebener E-Mail existiert nicht!",
-        "Password successfully changed. You can now login with your new password!": "Passwort erfolgreich geändert. Du kannst dich jetzt mit deinem neuen Passwort einloggen!"
+        "Password successfully changed. You can now login with your new password!": "Passwort erfolgreich geändert. Du kannst dich jetzt mit deinem neuen Passwort einloggen!",
+        "Send": "Senden",
+        "Forgot your password?": "Passwort vergessen"
     }
 }

@@ -32,7 +32,7 @@ class Database {
         $this->insert = '';
         $this->update = '';
         $this->statement = '';
-        $this->bindValuesArray = '';
+        $this->bindValuesArray = [];
     }
 
     public function buildSelectQuery() {

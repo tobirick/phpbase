@@ -11,6 +11,8 @@
         "Something went wrong!": "Something went wrong!",
         "Check your E-Mails. We send you a Password Reset Link!": "Check your E-Mails. We send you a Password Reset Link!",
         "User with provided E-Mail does not exist!": "User with provided E-Mail does not exist!",
-        "Password successfully changed. You can now login with your new password!": "Password successfully changed. You can now login with your new password!"
+        "Password successfully changed. You can now login with your new password!": "Password successfully changed. You can now login with your new password!",
+        "Send": "Send",
+        "Forgot your password?": "Forgot your password?"
     }
 }

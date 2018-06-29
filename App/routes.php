@@ -3,6 +3,7 @@
 use \Core\Middleware;
 use \Core\BaseController;
 
+// Auth Routes
 $router->get('/login', Middleware::guestRoute('AuthController@loginIndex'), 'login.index');
 $router->post('/login', Middleware::guestRoute('AuthController@login'), 'login');
 $router->get('/logout', Middleware::userRoute('AuthController@logout'), 'logout');
@@ -15,10 +16,5 @@ $router->post('/password/forgot', Middleware::guestRoute('AuthController@passwor
 $router->get('/password/reset/[a:token]', Middleware::guestRoute('AuthController@passwordResetIndex'), 'password.reset.index');
 $router->post('/password/reset', Middleware::guestRoute('AuthController@passwordReset'), 'password.reset');
 
-$router->get('/[i:id]', Middleware::userRoute('IndexController@test'), 'testroute');
+// Your routes
 $router->get('/', Middleware::userRoute('IndexController@index'), 'index');
-
-$router->get('/create', Middleware::userRoute('IndexController@create'));
-
-// Tests
-$router->put('/login', 'AuthController@puttest', 'puttest');
