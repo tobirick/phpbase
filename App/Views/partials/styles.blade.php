@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="{{ asset('css/main.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
