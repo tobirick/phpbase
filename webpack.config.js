@@ -5,6 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CSSExtract = new ExtractTextPlugin('../css/main.css');
 
+require("dotenv").config();
+
 return (module.exports = {
    entry: './resources/scripts/main.js',
    output: {
@@ -43,7 +45,7 @@ return (module.exports = {
     CSSExtract,
     new BrowserSyncPlugin(
         {
-            proxy: 'http://phpbase.local:8081/',
+            proxy: process.env.BASE_URL,
             files: [
                 {
                     match: [
@@ -66,11 +68,7 @@ return (module.exports = {
    devServer: {
     proxy: {
         '/': {
-            target: {
-                host: "phpbase.local",
-                protocol: "http:",
-                port: 8081
-            },
+            target: process.env.BASE_URL,
             changeOrigin: true,
             secure: false
         }

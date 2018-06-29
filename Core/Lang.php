@@ -18,7 +18,7 @@ class Lang {
     }
 
     public function setLanguage($lang) {
-        if(file_exists(__DIR__ . './../resources/lang/' . $lang . '.json')) {
+        if(file_exists(__DIR__ . '/../resources/lang/' . $lang . '.json')) {
             $this->currentLanguage = $lang;
             $this->loadLanguage($lang);
         }
@@ -41,15 +41,15 @@ class Lang {
     }
 
     public function loadLanguage($lang) {
-        $file = file_get_contents(__DIR__ . './../resources/lang/' . $lang . '.json');
+        $file = file_get_contents(__DIR__ . '/../resources/lang/' . $lang . '.json');
 
         $this->languageArray = json_decode($file, true);
     }
 
     public function getAllLanguages() {
-        foreach (new DirectoryIterator(__DIR__ . './../resources/lang') as $lang) {
+        foreach (new DirectoryIterator(__DIR__ . '/../resources/lang') as $lang) {
             if($lang->isDot()) continue;
-            $fileContent = json_decode(file_get_contents(__DIR__ . './../resources/lang/' . $lang->getBasename('.json') . '.json'), true);
+            $fileContent = json_decode(file_get_contents(__DIR__ . '/../resources/lang/' . $lang->getBasename('.json') . '.json'), true);
 
             $this->allLanguagesArray[] = [
                 'iso' => $lang->getBasename('.json'),
