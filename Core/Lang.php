@@ -14,7 +14,11 @@ class Lang {
     }
 
     public function getTranslation($string) {
-        return $this->languageArray['translations'][$string];
+        if(array_key_exists($string, $this->languageArray['translations'])) {
+            return $this->languageArray['translations'][$string];
+        } else {
+            return $string;
+        }
     }
 
     public function setLanguage($lang) {

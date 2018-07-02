@@ -21,23 +21,23 @@ class Validator {
         $this->validations = [
             'required' => [
                 'message' => $this->lang->getTranslation('is required'),
-                'rule' => 'checkRequired'
+                'func' => 'checkRequired'
             ],
             'max' => [
                 'message' => $this->lang->getTranslation('is too long'),
-                'rule' => 'checkMaxLength'
+                'func' => 'checkMaxLength'
             ],
             'min' => [
                 'message' => $this->lang->getTranslation('is too short'),
-                'rule' => 'checkMinLength'
+                'func' => 'checkMinLength'
             ],
             'email' => [
                 'message' => $this->lang->getTranslation('is no valid email'),
-                'rule' => 'checkEmail'
+                'func' => 'checkEmail'
             ],
             'int' => [
                 'message' => $this->lang->getTranslation('is no valid number'),
-                'rule' => 'checkInt'
+                'func' => 'checkInt'
             ]
         ];
     }
@@ -57,7 +57,7 @@ class Validator {
                 }
                 $rule = $this->validations[$providedValidationRule];
 
-                if(call_user_func_array(array($this, $rule['rule']), $params)) {
+                if(call_user_func_array(array($this, $rule['func']), $params)) {
                     $validationKeyString = ucfirst(join(' ', explode('_', $validationKey)));
 
                     $this->errors[$validationKey][] = $validationKeyString . ' ' . $rule['message'] . '!';

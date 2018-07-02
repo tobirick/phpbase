@@ -23,7 +23,6 @@ class CSRF {
             exit('Missing CSRF token');
         }
 
- 
         // Get the token from the session
         $token = $_SESSION['csrf_token'];
 

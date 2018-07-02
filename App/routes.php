@@ -1,7 +1,6 @@
 <?php
 
 use \Core\Middleware;
-use \Core\BaseController;
 
 // Auth Routes
 $router->get('/login', Middleware::guestRoute('AuthController@loginIndex'), 'login.index');
