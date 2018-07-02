@@ -7,5 +7,7 @@ launch.json
 /.idea
 composer.lock
 package-lock.json
-/puplic/css
+/public/css
 /public/js
+/public/css/main.css
+/public/js/main.js
