@@ -7,6 +7,8 @@
         "is required": "wird benötigt",
         "is too long": "ist zu lang",
         "is too short": "ist zu kurz",
+        "is no valid email": "ist keine valide E-Mail",
+        "is no valid number": "ist keine valide Nummer",
         "Wrong credentials!": "Falsche Eingabe!",
         "Something went wrong!": "Etwas ist schief gelaufen!",
         "Check your E-Mails. We send you a Password Reset Link!": "Überprüfe deine E-Mails. Wir haben dir einen Passwort Reset Link geschickt!",

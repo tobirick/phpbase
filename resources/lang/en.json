@@ -7,6 +7,8 @@
         "is required": "is required",
         "is too long": "is too long",
         "is too short": "is too short",
+        "is no valid email": "is no valid email",
+        "is no valid number": "is no valid number",
         "Wrong credentials!": "Wrong credentials!",
         "Something went wrong!": "Something went wrong!",
         "Check your E-Mails. We send you a Password Reset Link!": "Check your E-Mails. We send you a Password Reset Link!",

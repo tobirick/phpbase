@@ -19,9 +19,11 @@ class AuthController extends BaseController {
     public function login() {
         if(isset($_POST)) {
             $errors = $this->validate($_POST['user'], [
-                'email' => 'required',
-                'password' => 'required|minlength:6'
+                'email' => 'required|email',
+                'password' => 'required|min:6'
             ]);
+
+            ddt($errors);
 
             if($errors) {
                 $this->redirectToRoute('login.index');
@@ -52,8 +54,8 @@ class AuthController extends BaseController {
     public function register() {
         if(isset($_POST)) {
             $errors = $this->validate($_POST['user'], [
-                'email' => 'required',
-                'password' => 'required|minlength:6'
+                'email' => 'required|email',
+                'password' => 'required|min:6'
             ]);
 
             if($errors) {
@@ -98,7 +100,7 @@ class AuthController extends BaseController {
     public function passwordForgot() {
         if(isset($_POST)) {
             $errors = $this->validate($_POST['user'], [
-                'email' => 'required'
+                'email' => 'required|email'
             ]);
 
             if($errors) {
@@ -138,7 +140,7 @@ class AuthController extends BaseController {
     public function passwordReset() {
        if(isset($_POST)) {
             $errors = $this->validate($_POST['user'], [
-                'password' => 'required|minlength:6'
+                'password' => 'required|min:6'
             ]);
             
             if($errors) {

@@ -108,4 +108,12 @@ class BaseController {
 
         return $errors;
     }
+
+    public function addError($field, $message) {
+        if(!$this->validateClass) {
+            $this->validateClass = new Validator('', '', Router::$lang);
+        }
+
+        $this->validateClass->addError($field, $message);
+    }
 }

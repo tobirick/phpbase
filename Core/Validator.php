@@ -23,13 +23,21 @@ class Validator {
                 'message' => $this->lang->getTranslation('is required'),
                 'rule' => 'checkRequired'
             ],
-            'maxlength' => [
+            'max' => [
                 'message' => $this->lang->getTranslation('is too long'),
                 'rule' => 'checkMaxLength'
             ],
-            'minlength' => [
+            'min' => [
                 'message' => $this->lang->getTranslation('is too short'),
                 'rule' => 'checkMinLength'
+            ],
+            'email' => [
+                'message' => $this->lang->getTranslation('is no valid email'),
+                'rule' => 'checkEmail'
+            ],
+            'int' => [
+                'message' => $this->lang->getTranslation('is no valid number'),
+                'rule' => 'checkInt'
             ]
         ];
     }
@@ -60,6 +68,10 @@ class Validator {
         return $this->errors;
     }
 
+    public function addError($field, $message) {
+        $this->errors[$field][] = $message;
+    }
+
     private function checkRequired($value) {
         return strlen($value) === 0;
     }
@@ -74,6 +86,22 @@ class Validator {
 
     private function checkMinLength($value, $length) {
         if(strlen($value) >= $length) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function checkEmail($value) {
+        if(filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function checkInt($value) {
+        if(filter_var($value, FILTER_VALIDATE_INT)) {
             return false;
         }
 
