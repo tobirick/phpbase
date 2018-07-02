@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{$Lang->getCurrentLanguage()}}">
 
 <head>
     <meta charset="UTF-8">

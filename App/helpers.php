@@ -6,9 +6,9 @@ function ddt($data) {
 }
 
 function route($routeName, $routeParams = []) {
-    $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+    $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]/" . Core\Router::$lang->getCurrentLanguage();
 
-    return $url . Core\Router::route($routeName, $routeParams);
+    return $url .  Core\Router::route($routeName, $routeParams);
 }
 
 function csrf() {
