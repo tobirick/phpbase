@@ -42,17 +42,14 @@ class BaseController {
             Shares::add('errors', $_SESSION['errors']);
             unset($_SESSION['errors']);
         }
-
         Shares::add('Lang', Router::$lang);
-
         Shares::add('Auth', new Auth);
 
         // Add your shares (Available in every View)
         Shares::add('share1', 'Share Test 1');
         Shares::add('share2', 'Share Test 2');
-        $this->shares = Shares::get();
         
-        $view = new View($this->template, $this->args, $this->shares);
+        $view = new View($this->template, $this->args);
         $view->render();
     }
 
@@ -68,7 +65,9 @@ class BaseController {
     }
 
     public function redirectBack() {
-        header("location:javascript://history.go(-1)");
+        $url = $_SERVER['HTTP_REFERER'];
+
+        $this->redirect($url);
     }
 
     public function translate($key) {

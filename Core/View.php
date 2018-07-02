@@ -11,10 +11,10 @@ class View {
     private $args;
     private $shares;
 
-    public function __construct($template, $args = [], $shares = '') {
+    public function __construct($template, $args = []) {
         $this->template = $template;
         $this->args = $args;
-        $this->shares = $shares;
+        $this->shares = Shares::get();
     }
 
     public function buildTemplate() {

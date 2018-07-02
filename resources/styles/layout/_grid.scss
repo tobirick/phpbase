@@ -1,0 +1,97 @@
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &.reverse {
+        flex-direction: row-reverse;
+    }
+
+    &.center-h {
+        justify-content: center;
+    }
+
+    &.center-v {
+        align-items: center;
+    }
+
+    &.space-between {
+        justify-content: space-between;
+    }
+
+    &.space-around {
+        justify-content: space-around;
+    }
+}
+
+.col, .col-sm, .col-md, .col-lg, .col-xl {
+    flex-grow: 1;
+    border: 1px solid;
+    max-width: 100%;
+}
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        @include col($i, 12);
+    }
+}
+
+// SM
+@include media-sm-min {
+    .container {
+        max-width: $container-maxwidth-sm;
+    }
+
+    @for $i from 1 through 12 {
+        .col-sm-#{$i} {
+            @include col($i, 12);
+        }
+    }
+}
+
+// MD
+@include media-md-min {
+    .container {
+        max-width: $container-maxwidth-md;
+    }
+
+    @for $i from 1 through 12 {
+        .col-md-#{$i} {
+            @include col($i, 12);
+        }
+    }
+}
+
+// LG
+@include media-lg-min {
+    .container {
+        max-width: $container-maxwidth-lg;
+    }
+
+    @for $i from 1 through 12 {
+        .col-lg-#{$i} {
+            @include col($i, 12);
+        }
+    }
+}
+
+// XL
+@include media-xl-min {
+    .container {
+        max-width: $container-maxwidth-xl;
+    }
+
+    @for $i from 1 through 12 {
+        .col-xl-#{$i} {
+            @include col($i, 12);
+        }
+    }
+}

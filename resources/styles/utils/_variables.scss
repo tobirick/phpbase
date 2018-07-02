@@ -1,0 +1,34 @@
+// COLORS
+$primary-color: #45AA0F;
+$secondary-color:#DB0A5B;
+
+// FONTS
+$default-font-family: "Lato", sans-serif;
+$default-font-size: 1.6rem;
+$default-line-height: 1.7;
+
+$default-text-color: #4a4a4a;
+$default-font-weight: 400;
+$h-text-color: darken($default-text-color, 2%);
+
+$h1-font-size: 3.5rem;
+$h2-font-size: 3rem;
+$h3-font-size: 2.5rem;
+$h4-font-size: 2rem;
+$h-font-weight: 500;
+
+// BUTTONS
+
+// FORMS
+
+// CONTAINER MAX-WIDTHS
+$container-maxwidth-sm: 540px;
+$container-maxwidth-md: 720px;
+$container-maxwidth-lg: 960px;
+$container-maxwidth-xl: 1140px;
+
+// MEDIA QUERIES BREAKPOINTS
+$media-sm: 576px;
+$media-md: 768px;
+$media-lg: 992px;
+$media-xl: 1200px;

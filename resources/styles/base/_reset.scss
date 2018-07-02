@@ -1,0 +1,73 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    // This defines what 1rem is
+    font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+    min-height: 100%;
+    
+    @include media-md-max {
+        font-size: 57.5%;
+    }
+    
+    @include media-sm-max {
+        font-size: 52.5%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    min-height: 100%;
+    overflow: hidden;
+}
+
+input,
+button,
+select,
+textarea {
+    margin: 0;
+    &:focus {
+        outline: none;
+    }
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+}
+
+object,
+embed,
+iframe {
+    max-width: 100%;
+}
+
+label,
+input[type=button],
+input[type=submit],
+input[type=file],
+button {
+    cursor: pointer;
+}

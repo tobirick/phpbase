@@ -1,0 +1,40 @@
+body {
+    font-family: $default-font-family;
+    font-weight: $default-font-weight;
+    font-size: $default-font-size;
+    line-height: $default-line-height;
+    color: $default-text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $h-text-color;
+    font-weight: $h-font-weight;
+}
+
+h1 {
+    font-size: $h1-font-size;
+}
+
+h2 {
+    font-size: $h2-font-size;
+}
+
+h3 {
+    font-size: $h3-font-size;
+}
+
+h4 {
+    font-size: $h4-font-size;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+    @include transition(.2s ease-in all);
+
+    &:hover,
+    &:active {
+        color: darken($primary-color, 15%);
+        text-decoration: underline;
+    }
+}
