@@ -33,7 +33,7 @@ return (module.exports = {
                   {
                      loader: 'sass-loader',
                      options: {
-                        sourceMap: false
+                        sourceMap: true
                      }
                   }
                ]
