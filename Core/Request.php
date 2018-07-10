@@ -38,18 +38,19 @@ class Request {
     public function validate($providedValidations, $type = '') {
         if($this->isMethod('POST')) {
             $data = $type ? $_POST[$type] : $_POST;
-            $validator = new Validator($data, $providedValidations, $this->lang);
-            
-            $errors = $validator->validate();
-    
-            if($errors) {
-                $_SESSION['errors'] = $errors;
-            }
-    
-            return $errors;
         } else {
-            return false;
+            $data = $this->ajax()->getJSON();
         }
+
+        $validator = new Validator($data, $providedValidations, $this->lang);
+            
+        $errors = $validator->validate();
+    
+        if($errors) {
+            $_SESSION['errors'] = $errors;
+        }
+    
+        return $errors;
     }
 
     public function flash() {
