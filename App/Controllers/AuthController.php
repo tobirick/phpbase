@@ -75,8 +75,8 @@ class AuthController extends BaseController {
         $this->view('auth.password.forgot')->render();
     }
 
-    public function passwordResetIndex($params) {
-        $passwordResetToken = $params['token'];
+    public function passwordResetIndex(Request $request) {
+        $passwordResetToken = $request->getParam('token');
 
         $currentTime = time();
         
@@ -119,9 +119,10 @@ class AuthController extends BaseController {
                     ])->getTemplate();
 
                     $email = new EMail();
+                    $email->setSMTP();
                     $email->setHTML();
                     $email->from('password@phpbase.local')->to($_POST['user']['email'])->subject('Password Reset Link')->body($emailHTML);
-                    //$email->send();
+                    $email->send();
 
                     $request->flash()->message($this->translate('Check your E-Mails. We send you a Password Reset Link!'))->success()->set();
                     $this->redirectToRoute('login.index');
@@ -135,9 +136,9 @@ class AuthController extends BaseController {
 
     public function passwordReset(Request $request) {
        if($request->isMethod('POST')) {
-            $errors = $this->validate($_POST['user'], [
+            $errors = $request->validate([
                 'password' => 'required|min:6'
-            ]);
+            ], 'user');
             
             if($errors) {
                 $this->view('auth.password.reset', [

@@ -35,7 +35,7 @@ class Request {
         }
     }
 
-    public function validate($providedValidations, $type = '') {
+    public function validate($providedValidations, $type = '') {;
         if($this->isMethod('POST')) {
             $data = $type ? $_POST[$type] : $_POST;
         } else {
