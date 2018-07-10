@@ -6,11 +6,6 @@ class BaseController {
     private $args;
     private $shares;
 
-    private $sessionClass;
-    private $flashClass;
-    private $ajaxClass;
-    private $validateClass;
-
     public function __construct() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CSRF::checkToken();
@@ -72,48 +67,5 @@ class BaseController {
 
     public function translate($key) {
         return Router::$lang->getTranslation($key);
-    }
-
-    public function session() {
-        if(!$this->sessionClass) {
-            $this->sessionClass = new Session();
-        }
-        return $this->sessionClass;
-    }
-
-    public function flash() {
-        if(!$this->flashClass) {
-            $this->flashClass = new Flash();
-        }
-        return $this->flashClass;
-    }
-
-    public function ajax() {
-        if(!$this->ajaxClass) {
-            $this->ajaxClass = new Ajax();
-        }
-        return $this->ajaxClass;
-    }
-
-    public function validate($providedValues, $providedValidations) {
-        if(!$this->validateClass) {
-            $this->validateClass = new Validator($providedValues, $providedValidations, Router::$lang);
-        }
-        
-        $errors = $this->validateClass->validate();
-
-        if($errors) {
-            $_SESSION['errors'] = $errors;
-        }
-
-        return $errors;
-    }
-
-    public function addError($field, $message) {
-        if(!$this->validateClass) {
-            $this->validateClass = new Validator('', '', Router::$lang);
-        }
-
-        $this->validateClass->addError($field, $message);
     }
 }

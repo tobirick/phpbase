@@ -2,22 +2,24 @@
 
 namespace App\Controllers;
 
-use \Core\BaseController;
 use \App\Models\User;
+use \Core\BaseController;
 use \Core\Token;
 use \Core\Email;
+use \Core\Request;
+use \Core\Response;
 
 class AuthController extends BaseController {
     public function loginIndex() {
         $this->view('auth.login')->render();
     }
 
-    public function login() {
-        if(isset($_POST)) {
-            $errors = $this->validate($_POST['user'], [
+    public function login(Request $request) {
+        if($request->isMethod('POST')) {
+            $errors = $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:6'
-            ]);
+            ], 'user');
 
             if($errors) {
                 $this->redirectToRoute('login.index');
@@ -29,7 +31,7 @@ class AuthController extends BaseController {
                 if($success === true) {
                     $this->redirectToRoute('index');
                 } else {
-                    $this->flash()->message($this->translate('Wrong credentials!'))->error()->set();
+                    $request->flash()->message($this->translate('Wrong credentials!'))->error()->set();
                     $this->redirectToRoute('login.index');
                 }
             }
@@ -45,12 +47,12 @@ class AuthController extends BaseController {
         $this->view('auth.register')->render();
     }
 
-    public function register() {
-        if(isset($_POST)) {
-            $errors = $this->validate($_POST['user'], [
+    public function register(Request $request) {
+        if($request->isMethod('POST')) {
+            $errors = $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:6'
-            ]);
+            ], 'user');
 
             if($errors) {
                 $this->redirectToRoute('register.index');
@@ -62,7 +64,7 @@ class AuthController extends BaseController {
                 if($success === true) {
                     $this->redirectToRoute('login.index');
                 } else {
-                    $this->flash()->message($this->translate('Something went wrong!'))->error()->set();
+                    $request->flash()->message($this->translate('Something went wrong!'))->error()->set();
                     $this->redirectToRoute('register.index');
                 }
             }
@@ -91,11 +93,11 @@ class AuthController extends BaseController {
         }
     }
 
-    public function passwordForgot() {
-        if(isset($_POST)) {
-            $errors = $this->validate($_POST['user'], [
+    public function passwordForgot(Request $request) {
+        if($request->isMethod('POST')) {
+            $errors = $request->validate([
                 'email' => 'required|email'
-            ]);
+            ], 'user');
 
             if($errors) {
                 $this->redirectToRoute('password.forgot.index');
@@ -121,18 +123,18 @@ class AuthController extends BaseController {
                     $email->from('password@phpbase.local')->to($_POST['user']['email'])->subject('Password Reset Link')->body($emailHTML);
                     //$email->send();
 
-                    $this->flash()->message($this->translate('Check your E-Mails. We send you a Password Reset Link!'))->success()->set();
+                    $request->flash()->message($this->translate('Check your E-Mails. We send you a Password Reset Link!'))->success()->set();
                     $this->redirectToRoute('login.index');
                 } else {
-                    $this->flash()->message($this->translate('User with provided E-Mail does not exist!'))->error()->set();
+                    $request->flash()->message($this->translate('User with provided E-Mail does not exist!'))->error()->set();
                     $this->redirectToRoute('password.forgot.index');
                 }
             }
         }
     }
 
-    public function passwordReset() {
-       if(isset($_POST)) {
+    public function passwordReset(Request $request) {
+       if($request->isMethod('POST')) {
             $errors = $this->validate($_POST['user'], [
                 'password' => 'required|min:6'
             ]);
@@ -153,10 +155,10 @@ class AuthController extends BaseController {
                 ]);
                 
                 if($user) {
-                    $this->flash()->message($this->translate('Password successfully changed. You can now login with your new password!'))->success()->set();
+                    $request->flash()->message($this->translate('Password successfully changed. You can now login with your new password!'))->success()->set();
                     $this->redirectToRoute('login.index');
                 } else {
-                    $this->flash()->message($this->translate('Something went wrong!'))->error()->set();
+                    $request->flash()->message($this->translate('Something went wrong!'))->error()->set();
                     $this->view('auth.password.reset', [
                         '_password_reset_token' => $_POST['_password_reset_token']
                     ])->render();

@@ -56,9 +56,11 @@ class Router {
                 $details = explode("@", $this->match['target']);
                 $this->controller = $this->namespace . $details[0];
                 $this->method = $details[1];
+
+                $request = new Request($this->params, self::$lang);
     
                 $ctrl = new $this->controller;
-                call_user_func([$ctrl, $this->method], $this->params);
+                call_user_func_array([$ctrl, $this->method], array($request));
 
                 return;
             } else if (is_callable($this->match['target'])) {
@@ -71,7 +73,7 @@ class Router {
         }
 
         $ctrl = new BaseController();
-        $ctrl->view('404')->render();
+        $ctrl->view('404')->render();;
     }
 
     public function route($routeName, $routeParams = []) {
